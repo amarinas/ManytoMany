@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>A Web Page</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <style media="screen">
+    div{
+      background-color: black;
+      font-size: 18px;
+    }
+
+  </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="jumbotron">
+          {% for one in user %}
+              Name:  {{one.name}} <br>
+              {% for tag in one.interests.all %}
+               Interest:  {{ tag.name }}
+               <form action='/interest/{{tag.id}}' method='POST'>
+                   {% csrf_token %}
+                   <input type="submit" class="btn btn-warning" value="Find others with same interest!">
+               </form>
+                <br>
+             {% endfor %}
+             <br>
+          {% endfor %}
+          <form action='/' method='POST'>
+              {% csrf_token %}
+              <input type="submit" class="btn btn-warning"  value="Go back to index">
+          </form>
+          <form action='/viewpeople' method='POST'>
+              {% csrf_token %}
+              <input type="submit" class="btn btn-warning"  value="Go back to people">
+          </form>
+        </div>
+
+      </div>
+
+    </body>
+</html>
